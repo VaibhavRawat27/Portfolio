@@ -8,58 +8,51 @@
 /* Body and background settings */
 body {
     font-family: 'Roboto', sans-serif;
-    background: #E7FBB4 !important;
+    background: #E7FBB4 !important; /* Light pastel yellow background */
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #000000;
+    color: black; /* Black text color */
     overflow: hidden;
 }
 
 /* Main container styling */
 .container {
     text-align: center;
-    max-width: 600px;
-    width: 100%;
     padding: 20px;
-}
-
-/* Content section */
-.content {
-    padding: 50px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 600px; /* Ensure it doesn't get too wide on large screens */
 }
 
 /* Heading styling */
 h1 {
     font-size: 2.5em;
+    font-weight: bold; /* Making the text bold */
     margin-bottom: 20px;
+    color: black; /* Black text color for the heading */
 }
 
 /* Highlighted name */
 .highlight {
-    color: #ff4081;
+    color: #ff4081; /* Pink color for highlighting the name */
 }
 
 /* Coming Soon styling */
 .coming-soon {
     font-size: 1.5em;
     margin-top: 20px;
-    animation: fadeIn 2s ease-in-out infinite;
+    color: black; /* Black color for "Coming Soon" text */
 }
 
-/* Button for notifications */
+/* Button for notifications (optional) */
 button {
     margin-top: 30px;
     background: #ff4081;
     border: none;
     padding: 15px 30px;
     font-size: 1.2em;
-    color: #000000;
+    color: white;
     border-radius: 25px;
     cursor: pointer;
     transition: background 0.3s;
@@ -70,9 +63,26 @@ button:hover {
     background: #ff80ab;
 }
 
-/* Animation for fading text */
-@keyframes fadeIn {
-    0% { opacity: 0; }
-    50% { opacity: 1; }
-    100% { opacity: 0; }
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    /* Adjust heading size for mobile */
+    h1 {
+        font-size: 2em;
+    }
+
+    /* Adjust the coming soon text for mobile */
+    .coming-soon {
+        font-size: 1.2em;
+    }
+
+    /* Adjust button size for mobile */
+    button {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+
+    /* Make sure the container has appropriate padding on mobile */
+    .container {
+        padding: 15px;
+    }
 }
