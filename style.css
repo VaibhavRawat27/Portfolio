@@ -45,22 +45,21 @@ h1 {
     color: black; /* Black color for "Coming Soon" text */
 }
 
-/* Button for notifications (optional) */
-button {
+/* Social icons */
+.social-icons {
     margin-top: 30px;
-    background: #ff4081;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    color: white;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background 0.3s;
 }
 
-/* Button hover effect */
-button:hover {
-    background: #ff80ab;
+.social-icons a {
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 2em;
+    color: #555;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ff4081; /* Highlight color on hover */
 }
 
 /* Media query for smaller screens */
@@ -75,14 +74,8 @@ button:hover {
         font-size: 1.2em;
     }
 
-    /* Adjust button size for mobile */
-    button {
-        padding: 12px 25px;
-        font-size: 1em;
-    }
-
-    /* Make sure the container has appropriate padding on mobile */
-    .container {
-        padding: 15px;
+    /* Adjust icon size for mobile */
+    .social-icons a {
+        font-size: 1.5em;
     }
 }
