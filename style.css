@@ -1,88 +1,97 @@
-/* Reset some default styles */
+/* Reset & Base Styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Body and background settings */
 body {
-    font-family: 'Roboto', sans-serif;
-    background: #E7FBB4 !important; /* Light pastel yellow background */
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: black; /* Black text color */
-    overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #c2ffd8, #ffd6ec);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-/* Main container styling */
-.container {
-    text-align: center;
-    padding: 20px;
-    width: 100%;
-    max-width: 600px; /* Ensure it doesn't get too wide on large screens */
+/* Main container with glass effect */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-/* Heading styling */
+.glass-card {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 40px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Heading */
 h1 {
-    font-size: 2.5em;
-    font-weight: bold; /* Making the text bold */
-    margin-bottom: 20px;
-    color: black; /* Black text color for the heading */
+  font-size: 2.8rem;
+  color: #222;
+  margin-bottom: 10px;
 }
 
-/* Highlighted name */
 .highlight {
-    color: #ff4081; /* Pink color for highlighting the name */
+  color: #ff4081;
 }
 
-/* Coming Soon styling */
-.coming-soon {
-    font-size: 1.5em;
-    margin-top: 20px;
-    color: black; /* Black color for "Coming Soon" text */
+/* Tagline */
+.tagline {
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 30px;
 }
 
-/* Social icons */
+/* Social Icons */
 .social-icons {
-    margin-top: 30px;
-    display: flex; /* Use flexbox to align icons */
-    justify-content: center; /* Center the icons */
-    gap: 20px; /* Add spacing between icons */
+  display: flex;
+  justify-content: center;
+  gap: 25px;
 }
 
 .social-icons a {
-    text-decoration: none;
-    font-size: 3em; /* Increase icon size */
-    color: #555; /* Default color */
-    transition: color 0.3s ease, transform 0.3s ease; /* Smooth color and size changes */
+  font-size: 2rem;
+  color: #fff;
+  background: #ff4081;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px #ff4081;
 }
 
 .social-icons a:hover {
-    color: #ff4081; /* Highlight color on hover */
-    transform: scale(1.2); /* Slightly enlarge on hover */
+  transform: scale(1.2);
+  background: #fff;
+  color: #ff4081;
+  box-shadow: 0 0 25px #ff4081;
 }
 
-/* Media query for smaller screens */
+/* Responsive Design */
 @media (max-width: 768px) {
-    /* Adjust heading size for mobile */
-    h1 {
-        font-size: 2em;
-    }
-
-    /* Adjust the coming soon text for mobile */
-    .coming-soon {
-        font-size: 1.2em;
-    }
-
-    /* Adjust icon size for mobile */
-    .social-icons a {
-        font-size: 2.5em; /* Slightly smaller icons for smaller screens */
-    }
-
-    .social-icons {
-        gap: 15px; /* Slightly reduce spacing between icons */
-    }
+  h1 {
+    font-size: 2rem;
+  }
+  .tagline {
+    font-size: 1rem;
+  }
+  .social-icons a {
+    font-size: 1.5rem;
+    width: 45px;
+    height: 45px;
+  }
 }
