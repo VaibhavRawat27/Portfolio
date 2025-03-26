@@ -95,3 +95,30 @@ h1 {
     height: 45px;
   }
 }
+
+@media (max-width: 480px) {
+  .glass-card {
+    padding: 25px 15px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .tagline {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+
+  .social-icons {
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .social-icons a {
+    font-size: 1.3rem;
+    width: 42px;
+    height: 42px;
+  }
+}
+
