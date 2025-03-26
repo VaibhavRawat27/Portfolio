@@ -15,6 +15,10 @@ body {
   overflow: hidden;
 }
 
+.social-icons a {
+  text-decoration: none; /* 👈 removes the underline */
+}
+
 /* Main container with glass effect */
 .main-container {
   display: flex;
