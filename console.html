@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Console Portfolio</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #000;
+      color: #00ff00;
+      overflow: hidden;
+    }
+    #console {
+      padding: 1em;
+      height: 100%;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+    .input-line {
+      display: flex;
+    }
+    .prompt { margin-right: 5px; }
+    input {
+      background: transparent;
+      border: none;
+      color: #00ff00;
+      outline: none;
+      font-family: inherit;
+      font-size: 1em;
+      width: 100%;
+    }
+    #loading {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #00ff00;
+      font-size: 1.5em;
+    }
+    ::selection {
+      background: #00ff00;
+      color: black;
+    }
+    .typed-char {
+      animation: typing 0.03s steps(1, end);
+    }
+    @keyframes typing {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div id="loading">Loading<span id="dots">.</span></div>
+
+  <div id="console" style="display:none;">
+    <div id="banner"></div>
+    <div class="input-line">
+      <span class="prompt">> </span>
+      <input id="input" autofocus autocomplete="off">
+    </div>
+  </div>
+
+  <script>
+    const consoleEl = document.getElementById('console');
+    let inputEl = document.getElementById('input');
+    const bannerEl = document.getElementById('banner');
+
+    const commands = {
+      help: `Available commands:
+  - about       → Learn about me
+  - skills      → See my skill set
+  - projects    → View my projects
+  - education   → My academic background
+  - experience  → Past work and internships
+  - contact     → Get in touch
+  - resume      → Download resume link
+  - social      → Social media links
+  - hobbies     → My hobbies
+  - quote       → Inspiring quote
+  - clear       → Clear the screen
+  - banner      → Show welcome banner again
+  - motivate    → Get motivation
+  - sudo        → 🔒 Permission denied (fun)
+  - hack        → Simulate hacking...
+  - matrix      → Green rain (easter egg)
+  - sing        → 🎶 Rickroll time!
+  - joke        → Get a fun dev joke
+  - ascii       → Show cool ASCII art
+  - theme       → Switch theme (light/dark)
+  - goals       → My short & long-term goals
+  - source      → See the code behind this portfolio
+  - help        → List available commands`,
+      about: "I'm a creative developer passionate about tech, learning, and open-source innovation.",
+      skills: "Languages: JavaScript, Python, C++, HTML/CSS\nTools: Git, VS Code, Linux\nDomains: Web, Game Dev, AI, Open Source",
+      projects: "1. Fork & Flow\n2. TxtSync\n3. Maze Runner Game\n4. SwapPathX\n5. Console Portfolio",
+      education: "B.Tech CSE | CGC Jhanjeri | 2nd Year, 4th Semester",
+      experience: "Intern @ XYZ | OSS Contributor | Fork & Flow Lead",
+      contact: "📧 yourname@example.com\n🌐 yourportfolio.com",
+      resume: "Download: [yourlink.com/resume.pdf]",
+      social: "GitHub: github.com/yourhandle\nLinkedIn: linkedin.com/in/yourprofile",
+      hobbies: "Coding, Games, Music, Writing, Reading",
+      quote: `"Stay hungry, stay foolish." – Steve Jobs`,
+      motivate: "“Push yourself, because no one else is going to do it for you.”",
+      sudo: "🔒 Permission denied: you are not root.",
+      hack: "Initiating hack...\nBypassing firewalls...\nAccess granted! (Just kidding 😄)",
+      matrix: "You took the green pill. Now you're in the Matrix...",
+      sing: "🎶 Never gonna give you up...\n🎶 Never gonna let you down...",
+      joke: "Why do programmers prefer dark mode? Because light attracts bugs! 🐞",
+      ascii: `
+       /\\_/\\  
+      ( o.o ) 
+       > ^ <  ~ ASCII Kitty`,
+      theme: "This feature is coming soon! 😉",
+      goals: "Short-Term: Master DSA, build projects, grow Fork & Flow\nLong-Term: Build a tech company, contribute to India's growth 🚀",
+      source: "View source code: github.com/yourhandle/console-portfolio"
+    };
+
+    const bannerText = `
+Welcome to my interactive console portfolio!
+Type 'help' to begin.
+`;
+
+    let history = [];
+    let historyIndex = -1;
+
+    function appendOutput(text, typed = true) {
+      const lines = text.split('\n');
+      lines.forEach((line, i) => {
+        const div = document.createElement('div');
+        if (typed) {
+          [...line].forEach((char, j) => {
+            const span = document.createElement('span');
+            span.className = 'typed-char';
+            span.textContent = char;
+            setTimeout(() => div.appendChild(span), j * 10);
+          });
+          setTimeout(() => {
+            consoleEl.insertBefore(div, inputEl.parentNode);
+            scrollToBottom();
+          }, i * 30);
+        } else {
+          div.textContent = line;
+          consoleEl.insertBefore(div, inputEl.parentNode);
+        }
+      });
+    }
+
+    function scrollToBottom() {
+      consoleEl.scrollTop = consoleEl.scrollHeight;
+    }
+
+    function resetInput() {
+      inputEl.value = '';
+      setTimeout(() => inputEl.focus(), 50);
+    }
+
+    function showBanner() {
+      bannerEl.innerHTML = '';
+      bannerText.split('\n').forEach(line => {
+        const div = document.createElement('div');
+        div.textContent = line;
+        bannerEl.appendChild(div);
+      });
+    }
+
+    inputEl.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const command = inputEl.value.trim();
+        if (command) {
+          history.push(command);
+          historyIndex = history.length;
+        }
+
+        const inputDisplay = document.createElement('div');
+        inputDisplay.textContent = '> ' + command;
+        consoleEl.insertBefore(inputDisplay, inputEl.parentNode);
+
+        if (command === 'clear') {
+          consoleEl.innerHTML = '';
+          bannerEl.innerHTML = '';
+          showBanner();
+          const newLine = document.createElement('div');
+          newLine.className = 'input-line';
+          newLine.innerHTML = '<span class="prompt">> </span><input id="input" autofocus autocomplete="off">';
+          consoleEl.appendChild(newLine);
+          inputEl = document.getElementById('input');
+          resetInput();
+        } else if (command === 'banner') {
+          showBanner();
+        } else if (commands[command]) {
+          appendOutput(commands[command]);
+        } else {
+          appendOutput("Command not found. Type 'help' to see available commands.");
+        }
+
+        resetInput();
+        scrollToBottom();
+      } else if (e.key === 'ArrowUp') {
+        if (historyIndex > 0) {
+          historyIndex--;
+          inputEl.value = history[historyIndex];
+        }
+      } else if (e.key === 'ArrowDown') {
+        if (historyIndex < history.length - 1) {
+          historyIndex++;
+          inputEl.value = history[historyIndex];
+        } else {
+          historyIndex = history.length;
+          inputEl.value = '';
+        }
+      }
+    });
+
+    let dotCount = 1;
+    const dots = document.getElementById('dots');
+    const loadingInterval = setInterval(() => {
+      dotCount = (dotCount + 1) % 4;
+      dots.textContent = '.'.repeat(dotCount);
+    }, 500);
+
+    window.onload = () => {
+      setTimeout(() => {
+        clearInterval(loadingInterval);
+        document.getElementById('loading').style.display = 'none';
+        consoleEl.style.display = 'block';
+        showBanner();
+        resetInput();
+      }, 2000);
+    };
+  </script>
+</body>
+</html>
