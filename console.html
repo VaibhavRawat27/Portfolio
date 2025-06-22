@@ -162,111 +162,75 @@
     let historyIndex = -1;
 
     const commands = {
-      help: () => `Available commands:<br>
-        <b>help</b> - List all available commands<br>
-        <b>clear</b> - Clear the terminal screen<br>
-        <b>whoami</b> - Display user information<br>
-        <b>date</b> - Show current date and time<br>
-        <b>about</b> - Info about the terminal<br>
-        <b>projects</b> - Show portfolio projects<br>
-        <b>contact</b> - Show contact info<br>
-        <b>skills</b> - Show tech stack<br>
-        <b>social</b> - Show social links<br>
-        <b>list</b> - List all files<br>
-        <b>cd</b> - Change directory<br>
-        <b>mkdir</b> - Make directory<br>
-        <b>rmdir</b> - Remove directory<br>
-        <b>touch</b> - Create a new file<br>
-        <b>rm</b> - Remove a file<br>
-        <b>cat</b> - Display file contents<br>
-        <b>echo</b> - Print text to the terminal<br>
-        <b>ping</b> - Check network connection<br>
-        <b>traceroute</b> - Trace route to a host<br>
-        <b>who</b> - Show who is logged in<br>
-        <b>uptime</b> - Show system uptime<br>
-        <b>df</b> - Show disk space usage<br>
-        <b>free</b> - Show memory usage<br>
-        <b>ps</b> - Show running processes<br>
-        <b>kill</b> - Kill a process<br>
-        <b>top</b> - Show active processes<br>
-        <b>history</b> - Show command history<br>
-        <b>clearhistory</b> - Clear command history<br>
-        <b>alias</b> - Create an alias for a command<br>
-        <b>unalias</b> - Remove an alias<br>
-        <b>chmod</b> - Change file permissions<br>
-        <b>chown</b> - Change file owner<br>
-        <b>find</b> - Search for files<br>
-        <b>grep</b> - Search text in files<br>
-        <b>wc</b> - Count lines, words, and characters<br>
-        <b>sort</b> - Sort lines of text files<br>
-        <b>uniq</b> - Report or omit repeated lines<br>
-        <b>tar</b> - Archive files<br>
-        <b>gzip</b> - Compress files<br>
-        <b>gunzip</b> - Decompress files<br>
-        <b>scp</b> - Secure copy files<br>
-        <b>ssh</b> - Secure shell access<br>
-        <b>ftp</b> - File transfer protocol<br>
-        <b>curl</b> - Transfer data from or to a server<br>
-        <b>wget</b> - Download files from the web<br>
-        <b>git</b> - Version control system<br>
-        <b>docker</b> - Container management<br>
-        <b>npm</b> - Node package manager<br>
-        <b>python</b> - Run Python scripts<br>
-        <b>java</b> - Run Java applications<br>
-        <b>node</b> - Run Node.js applications<br>
-        <b>exit</b> - Exit the terminal`,
-      clear: () => { terminalOutput.innerHTML = ''; return ''; },
-      whoami: () => ":user Terminal User - Tech Explorer",
-      date: () => `Current Date and Time: ${new Date().toLocaleString()}`,
-      about: () => "Welcome to the Terminal Experience! 🚀",
-      projects: () => `📂 Projects:<br>- Project A<br>- Project B<br>- Project C`,
-      contact: () => `📧 Email: user@example.com<br>📱 Phone: +91-XXXXXXXXXX`,
-      skills: () => `🛠️ Skills:<br>HTML, CSS, JavaScript, React, Node.js`,
-      social: () => `🌐 GitHub: github.com/user<br>🔗 LinkedIn: linkedin.com/in/user`,
-      list: () => `File1.txt<br>File2.txt<br>File3.txt`,
-      cd: () => `Changed directory to /home/user`,
-      mkdir: () => `Directory created`,
-      rmdir: () => `Directory removed`,
-      touch: () => `File created`,
-      rm: () => `File removed`,
-      cat: () => `Displaying file contents...`,
-      echo: () => `Printed text to the terminal`,
-      ping: () => `Pinging...`,
-      traceroute: () => `Tracing route...`,
-      who: () => `User  logged in: user`,
-      uptime: () => `System uptime: 5 days, 3 hours`,
-      df: () => `Disk space usage: 50% used`,
-      free: () => `Memory usage: 70% used`,
-      ps: () => `Running processes: process1, process2`,
-      kill: () => `Process killed`,
-      top: () => `Active processes: process1, process2`,
-      history: () => `Command history displayed`,
-      clearhistory: () => `Command history cleared`,
-      alias: () => `Alias created`,
-      unalias: () => `Alias removed`,
-      chmod: () => `File permissions changed`,
-      chown: () => `File owner changed`,
-      find: () => `Files found`,
-      grep: () => `Text searched in files`,
-      wc: () => `Counted lines, words, and characters`,
-      sort: () => `Lines sorted`,
-      uniq: () => `Repeated lines reported`,
-      tar: () => `Files archived`,
-      gzip: () => `Files compressed`,
-      gunzip: () => `Files decompressed`,
-      scp: () => `Files copied securely`,
-      ssh: () => `Secure shell access established`,
-      ftp: () => `File transfer protocol initiated`,
-      curl: () => `Data transferred`,
-      wget: () => `Files downloaded`,
-      git: () => `Version control system accessed`,
-      docker: () => `Container management accessed`,
-      npm: () => `Node package manager accessed`,
-      python: () => `Python script executed`,
-      java: () => `Java application executed`,
-      node: () => `Node.js application executed`,
-      exit: () => `Exiting terminal...`
-    };
+  help: () => `Available commands:<br>
+    <b>about</b> - Who is Vaibhav Rawat<br>
+    <b>projects</b> - Show portfolio projects<br>
+    <b>skills</b> - Show technical skills<br>
+    <b>contact</b> - Contact information<br>
+    <b>social</b> - Social media links<br>
+    <b>resume</b> - View or download resume<br>
+    <b>education</b> - Academic background<br>
+    <b>experience</b> - Work and internship experience<br>
+    <b>achievements</b> - Key achievements<br>
+    <b>vaibhav</b> - Fun facts or intro<br>
+    <b>ascii</b> - ASCII art for fun<br>
+    <b>clear</b> - Clear the terminal screen<br>
+    <b>exit</b> - Exit the terminal`,
+  
+  clear: () => { terminalOutput.innerHTML = ''; return ''; },
+  about: () => `Hi! I'm <b>Vaibhav Rawat</b>, an aspiring Software Engineer & Android Developer passionate about building impactful tech products. I love working on full-stack projects, exploring AI, and contributing to open-source.`,
+
+  projects: () => `📂 Projects:<br>
+  - <b>RunwayScheduler AI</b> – Intelligent air traffic control<br>
+  - <b>IntelliSupply</b> – Smart supply chain & delivery routes<br>
+  - <b>AgriSmart India</b> – AI-driven crop planning & advisory<br>
+  - <b>Chess Analyzer JS</b> – Web-based chess PGN evaluator<br>
+  - <b>ISS Tracker</b> – Live 2D/3D space visualization<br>
+  - <i>...and more on GitHub!</i>`,
+
+  skills: () => `🛠️ Tech Stack:<br>
+  <b>Languages:</b> Python, JavaScript, Java, Dart<br>
+  <b>Frameworks:</b> React, Flutter, Node.js, Tkinter<br>
+  <b>Tools:</b> Firebase, Git, Power BI, Three.js, Excel<br>
+  <b>Others:</b> Data Analysis, WebGL, APIs, Figma UI`,
+
+  contact: () => `📧 Email: vaibhav.rawat.dev@gmail.com<br>📱 Phone: +91-XXXXXXXXXX`,
+
+  social: () => `🌐 GitHub: <a href="https://github.com/vaibhav-rawat-official" target="_blank">vaibhav-rawat-official</a><br>
+  🔗 LinkedIn: <a href="https://linkedin.com/in/vaibhavrawatdev" target="_blank">vaibhavrawatdev</a><br>
+  📺 YouTube: <a href="https://youtube.com/@vaibhavrawat" target="_blank">@vaibhavrawat</a>`,
+
+  resume: () => `📄 <a href="https://your-resume-link.com" target="_blank">Click here to view/download my resume</a>`,
+  
+  education: () => `🎓 Education:<br>
+  - B.Tech CSE – Chandigarh Engineering College<br>
+  - Relevant coursework: DS, OS, DBMS, CN, AI, ML`,
+
+  experience: () => `💼 Experience:<br>
+  - R&D Intern – SmartTech Labs<br>
+  - Freelance Android App Developer<br>
+  - Contributed to 10+ projects including full-stack tools & AI apps`,
+
+  achievements: () => `🏆 Achievements:<br>
+  - Finalist @ Walmart Sparkathon 2025<br>
+  - Built 5+ full-scale software tools<br>
+  - Featured open-source contributor<br>
+  - Led campus tech community events`,
+
+  vaibhav: () => `😎 I'm Vaibhav — terminal, code, and coffee lover.<br>
+  Type <b>projects</b>, <b>skills</b>, or <b>resume</b> to explore more!`,
+
+  ascii: () => `<pre>
+   _    __     __    _     
+  | |   \\ \\   / /   | |    
+  | |    \\ \\_/ /__ _| |__  
+  | |     \\   / _ \\ '_ \\ 
+  | |____  | |  __/ |_) |
+  |______| |_|\\___|_.__/ 
+  </pre>`,
+
+  exit: () => `Session terminated. Refresh to restart.`
+};
 
     terminalInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
