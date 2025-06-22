@@ -2,238 +2,308 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Console Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terminal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <style>
-    * { box-sizing: border-box; }
-    html, body {
-      height: 100%;
+    :root {
+      --primary: #5eead4;
+      --dark: #1a1a1a; /* Darker background */
+      --darker: #0d0d0d; /* Even darker background */
+      --light: #f8fafc;
+      --border-radius-md: 0.5rem;
+      --transition-base: all 0.3s ease-in-out;
+      --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: 'Courier New', Courier, monospace;
-      background-color: #000;
-      color: #00ff00;
+      padding: 0;
+    }
+
+    body, html {
+      font-family: 'Fira Code', monospace;
+      background-color: var(--darker);
+      color: var(--light);
+      height: 100%;
       overflow: hidden;
     }
-    #console {
-      padding: 1em;
-      height: 100%;
-      overflow-y: auto;
-      white-space: pre-wrap;
-    }
-    .input-line {
-      display: flex;
-    }
-    .prompt { margin-right: 5px; }
-    input {
-      background: transparent;
-      border: none;
-      color: #00ff00;
-      outline: none;
-      font-family: inherit;
-      font-size: 1em;
+
+    #particles-js {
+      position: fixed;
       width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0; /* Ensure particles are behind other content */
+      opacity: 0.5; /* Adjust opacity for better visibility */
     }
-    #loading {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: black;
+
+    .terminal-overlay {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(13, 13, 13, 0.8); /* More transparent background */
+      z-index: 5; /* Ensure terminal is above particles */
+      padding: 2rem 1rem;
+      overflow: hidden;
+    }
+
+    .terminal-box {
+      background-color: var(--dark);
+      width: 100%;
+      max-width: 900px;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--border-radius-md);
+      padding: 1rem;
+      box-shadow: var(--shadow-lg);
+      opacity: 0.9; /* Slightly transparent terminal box */
+      overflow-y: auto; /* Enable vertical scrolling */
+      scrollbar-width: none; /* Hide scrollbar for Firefox */
+      -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+    }
+
+    .terminal-box::-webkit-scrollbar {
+      display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+    }
+
+    .terminal-body {
+      flex-grow: 1;
+      font-size: 0.9rem;
+      padding-right: 0.5rem;
+    }
+
+    .terminal-input-line {
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: #00ff00;
-      font-size: 1.5em;
+      margin-top: 1rem;
     }
-    ::selection {
-      background: #00ff00;
-      color: black;
+
+    .terminal-prompt {
+      color: var(--primary);
+      margin-right: 0.5rem;
     }
-    .typed-char {
-      animation: typing 0.03s steps(1, end);
+
+    .terminal-input {
+      flex-grow: 1;
+      background: transparent;
+      border: none;
+      color: var(--light);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      caret-color: var(--primary);
     }
-    @keyframes typing {
-      from { opacity: 0; }
-      to { opacity: 1; }
+
+    .terminal-output div {
+      margin-bottom: 0.3rem;
     }
   </style>
 </head>
 <body>
-  <div id="loading">Loading<span id="dots">.</span></div>
+  <div id="particles-js"></div>
 
-  <div id="console" style="display:none;">
-    <div id="banner"></div>
-    <div class="input-line">
-      <span class="prompt">> </span>
-      <input id="input" autofocus autocomplete="off">
+  <!-- Terminal Overlay -->
+  <div class="terminal-overlay" id="terminalOverlay">
+    <div class="terminal-box">
+      <div class="terminal-body" id="terminalBody">
+        <div>Welcome to the Terminal. Type 'help' to begin.</div>
+        <div class="terminal-output"></div>
+      </div>
+      <div class="terminal-input-line">
+        <span class="terminal-prompt">$</span>
+        <input type="text" class="terminal-input" id="terminalInput" autocomplete="off" spellcheck="false">
+      </div>
     </div>
   </div>
 
   <script>
-    const consoleEl = document.getElementById('console');
-    let inputEl = document.getElementById('input');
-    const bannerEl = document.getElementById('banner');
+    // Init particles
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: "#5eead4" }, // Single vibrant color
+        shape: { type: "circle" }, // Bubble-like particles
+        opacity: { value: 0.6, random: true },
+        size: { value: 10, random: true }, // Increased size for bubble effect
+        line_linked: { enable: true, distance: 150, color: "#5eead4", opacity: 0.4, width: 1 },
+        move: { enable: true, speed: 2, direction: "none", out_mode: "out" }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "grab" },
+          onclick: { enable: true, mode: "push" }
+        },
+        modes: {
+          grab: { distance: 140, line_linked: { opacity: 1 } },
+          push: { particles_nb: 4 }
+        }
+      },
+      retina_detect: true
+    });
 
-    const commands = {
-      help: `Available commands:
-  - about       → Learn about me
-  - skills      → See my skill set
-  - projects    → View my projects
-  - education   → My academic background
-  - experience  → Past work and internships
-  - contact     → Get in touch
-  - resume      → Download resume link
-  - social      → Social media links
-  - hobbies     → My hobbies
-  - quote       → Inspiring quote
-  - clear       → Clear the screen
-  - banner      → Show welcome banner again
-  - motivate    → Get motivation
-  - sudo        → 🔒 Permission denied (fun)
-  - hack        → Simulate hacking...
-  - matrix      → Green rain (easter egg)
-  - sing        → 🎶 Rickroll time!
-  - joke        → Get a fun dev joke
-  - ascii       → Show cool ASCII art
-  - theme       → Switch theme (light/dark)
-  - goals       → My short & long-term goals
-  - source      → See the code behind this portfolio
-  - help        → List available commands`,
-      about: "I'm a creative developer passionate about tech, learning, and open-source innovation.",
-      skills: "Languages: JavaScript, Python, C++, HTML/CSS\nTools: Git, VS Code, Linux\nDomains: Web, Game Dev, AI, Open Source",
-      projects: "1. Fork & Flow\n2. TxtSync\n3. Maze Runner Game\n4. SwapPathX\n5. Console Portfolio",
-      education: "B.Tech CSE | CGC Jhanjeri | 2nd Year, 4th Semester",
-      experience: "Intern @ XYZ | OSS Contributor | Fork & Flow Lead",
-      contact: "📧 yourname@example.com\n🌐 yourportfolio.com",
-      resume: "Download: [yourlink.com/resume.pdf]",
-      social: "GitHub: github.com/yourhandle\nLinkedIn: linkedin.com/in/yourprofile",
-      hobbies: "Coding, Games, Music, Writing, Reading",
-      quote: `"Stay hungry, stay foolish." – Steve Jobs`,
-      motivate: "“Push yourself, because no one else is going to do it for you.”",
-      sudo: "🔒 Permission denied: you are not root.",
-      hack: "Initiating hack...\nBypassing firewalls...\nAccess granted! (Just kidding 😄)",
-      matrix: "You took the green pill. Now you're in the Matrix...",
-      sing: "🎶 Never gonna give you up...\n🎶 Never gonna let you down...",
-      joke: "Why do programmers prefer dark mode? Because light attracts bugs! 🐞",
-      ascii: `
-       /\\_/\\  
-      ( o.o ) 
-       > ^ <  ~ ASCII Kitty`,
-      theme: "This feature is coming soon! 😉",
-      goals: "Short-Term: Master DSA, build projects, grow Fork & Flow\nLong-Term: Build a tech company, contribute to India's growth 🚀",
-      source: "View source code: github.com/yourhandle/console-portfolio"
-    };
+    // Terminal logic
+    const terminalInput = document.getElementById('terminalInput');
+    const terminalOutput = document.querySelector('.terminal-output');
+    const terminalBody = document.getElementById('terminalBody');
 
-    const bannerText = `
-Welcome to my interactive console portfolio!
-Type 'help' to begin.
-`;
-
-    let history = [];
+    let commandHistory = [];
     let historyIndex = -1;
 
-    function appendOutput(text, typed = true) {
-      const lines = text.split('\n');
-      lines.forEach((line, i) => {
-        const div = document.createElement('div');
-        if (typed) {
-          [...line].forEach((char, j) => {
-            const span = document.createElement('span');
-            span.className = 'typed-char';
-            span.textContent = char;
-            setTimeout(() => div.appendChild(span), j * 10);
-          });
-          setTimeout(() => {
-            consoleEl.insertBefore(div, inputEl.parentNode);
-            scrollToBottom();
-          }, i * 30);
-        } else {
-          div.textContent = line;
-          consoleEl.insertBefore(div, inputEl.parentNode);
-        }
-      });
-    }
+    const commands = {
+      help: () => `Available commands:<br>
+        <b>help</b> - List all available commands<br>
+        <b>clear</b> - Clear the terminal screen<br>
+        <b>whoami</b> - Display user information<br>
+        <b>date</b> - Show current date and time<br>
+        <b>about</b> - Info about the terminal<br>
+        <b>projects</b> - Show portfolio projects<br>
+        <b>contact</b> - Show contact info<br>
+        <b>skills</b> - Show tech stack<br>
+        <b>social</b> - Show social links<br>
+        <b>list</b> - List all files<br>
+        <b>cd</b> - Change directory<br>
+        <b>mkdir</b> - Make directory<br>
+        <b>rmdir</b> - Remove directory<br>
+        <b>touch</b> - Create a new file<br>
+        <b>rm</b> - Remove a file<br>
+        <b>cat</b> - Display file contents<br>
+        <b>echo</b> - Print text to the terminal<br>
+        <b>ping</b> - Check network connection<br>
+        <b>traceroute</b> - Trace route to a host<br>
+        <b>who</b> - Show who is logged in<br>
+        <b>uptime</b> - Show system uptime<br>
+        <b>df</b> - Show disk space usage<br>
+        <b>free</b> - Show memory usage<br>
+        <b>ps</b> - Show running processes<br>
+        <b>kill</b> - Kill a process<br>
+        <b>top</b> - Show active processes<br>
+        <b>history</b> - Show command history<br>
+        <b>clearhistory</b> - Clear command history<br>
+        <b>alias</b> - Create an alias for a command<br>
+        <b>unalias</b> - Remove an alias<br>
+        <b>chmod</b> - Change file permissions<br>
+        <b>chown</b> - Change file owner<br>
+        <b>find</b> - Search for files<br>
+        <b>grep</b> - Search text in files<br>
+        <b>wc</b> - Count lines, words, and characters<br>
+        <b>sort</b> - Sort lines of text files<br>
+        <b>uniq</b> - Report or omit repeated lines<br>
+        <b>tar</b> - Archive files<br>
+        <b>gzip</b> - Compress files<br>
+        <b>gunzip</b> - Decompress files<br>
+        <b>scp</b> - Secure copy files<br>
+        <b>ssh</b> - Secure shell access<br>
+        <b>ftp</b> - File transfer protocol<br>
+        <b>curl</b> - Transfer data from or to a server<br>
+        <b>wget</b> - Download files from the web<br>
+        <b>git</b> - Version control system<br>
+        <b>docker</b> - Container management<br>
+        <b>npm</b> - Node package manager<br>
+        <b>python</b> - Run Python scripts<br>
+        <b>java</b> - Run Java applications<br>
+        <b>node</b> - Run Node.js applications<br>
+        <b>exit</b> - Exit the terminal`,
+      clear: () => { terminalOutput.innerHTML = ''; return ''; },
+      whoami: () => ":user Terminal User - Tech Explorer",
+      date: () => `Current Date and Time: ${new Date().toLocaleString()}`,
+      about: () => "Welcome to the Terminal Experience! 🚀",
+      projects: () => `📂 Projects:<br>- Project A<br>- Project B<br>- Project C`,
+      contact: () => `📧 Email: user@example.com<br>📱 Phone: +91-XXXXXXXXXX`,
+      skills: () => `🛠️ Skills:<br>HTML, CSS, JavaScript, React, Node.js`,
+      social: () => `🌐 GitHub: github.com/user<br>🔗 LinkedIn: linkedin.com/in/user`,
+      list: () => `File1.txt<br>File2.txt<br>File3.txt`,
+      cd: () => `Changed directory to /home/user`,
+      mkdir: () => `Directory created`,
+      rmdir: () => `Directory removed`,
+      touch: () => `File created`,
+      rm: () => `File removed`,
+      cat: () => `Displaying file contents...`,
+      echo: () => `Printed text to the terminal`,
+      ping: () => `Pinging...`,
+      traceroute: () => `Tracing route...`,
+      who: () => `User  logged in: user`,
+      uptime: () => `System uptime: 5 days, 3 hours`,
+      df: () => `Disk space usage: 50% used`,
+      free: () => `Memory usage: 70% used`,
+      ps: () => `Running processes: process1, process2`,
+      kill: () => `Process killed`,
+      top: () => `Active processes: process1, process2`,
+      history: () => `Command history displayed`,
+      clearhistory: () => `Command history cleared`,
+      alias: () => `Alias created`,
+      unalias: () => `Alias removed`,
+      chmod: () => `File permissions changed`,
+      chown: () => `File owner changed`,
+      find: () => `Files found`,
+      grep: () => `Text searched in files`,
+      wc: () => `Counted lines, words, and characters`,
+      sort: () => `Lines sorted`,
+      uniq: () => `Repeated lines reported`,
+      tar: () => `Files archived`,
+      gzip: () => `Files compressed`,
+      gunzip: () => `Files decompressed`,
+      scp: () => `Files copied securely`,
+      ssh: () => `Secure shell access established`,
+      ftp: () => `File transfer protocol initiated`,
+      curl: () => `Data transferred`,
+      wget: () => `Files downloaded`,
+      git: () => `Version control system accessed`,
+      docker: () => `Container management accessed`,
+      npm: () => `Node package manager accessed`,
+      python: () => `Python script executed`,
+      java: () => `Java application executed`,
+      node: () => `Node.js application executed`,
+      exit: () => `Exiting terminal...`
+    };
 
-    function scrollToBottom() {
-      consoleEl.scrollTop = consoleEl.scrollHeight;
-    }
-
-    function resetInput() {
-      inputEl.value = '';
-      setTimeout(() => inputEl.focus(), 50);
-    }
-
-    function showBanner() {
-      bannerEl.innerHTML = '';
-      bannerText.split('\n').forEach(line => {
-        const div = document.createElement('div');
-        div.textContent = line;
-        bannerEl.appendChild(div);
-      });
-    }
-
-    inputEl.addEventListener('keydown', function(e) {
+    terminalInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        const command = inputEl.value.trim();
-        if (command) {
-          history.push(command);
-          historyIndex = history.length;
+        const input = terminalInput.value.trim();
+        terminalOutput.innerHTML += `<div><span class="terminal-prompt">$</span> ${input}</div>`;
+        terminalInput.value = '';
+        if (input) {
+          commandHistory.push(input);
+          historyIndex = commandHistory.length;
         }
 
-        const inputDisplay = document.createElement('div');
-        inputDisplay.textContent = '> ' + command;
-        consoleEl.insertBefore(inputDisplay, inputEl.parentNode);
-
-        if (command === 'clear') {
-          consoleEl.innerHTML = '';
-          bannerEl.innerHTML = '';
-          showBanner();
-          const newLine = document.createElement('div');
-          newLine.className = 'input-line';
-          newLine.innerHTML = '<span class="prompt">> </span><input id="input" autofocus autocomplete="off">';
-          consoleEl.appendChild(newLine);
-          inputEl = document.getElementById('input');
-          resetInput();
-        } else if (command === 'banner') {
-          showBanner();
-        } else if (commands[command]) {
-          appendOutput(commands[command]);
+        const command = input.toLowerCase();
+        if (commands[command]) {
+          const result = commands[command]();
+          if (result) terminalOutput.innerHTML += `<div>${result}</div>`;
         } else {
-          appendOutput("Command not found. Type 'help' to see available commands.");
+          terminalOutput.innerHTML += `<div>Command not found. Type 'help' for available commands.</div>`;
         }
 
-        resetInput();
-        scrollToBottom();
-      } else if (e.key === 'ArrowUp') {
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+      }
+
+      // Command history navigation
+      if (e.key === 'ArrowUp') {
         if (historyIndex > 0) {
           historyIndex--;
-          inputEl.value = history[historyIndex];
+          terminalInput.value = commandHistory[historyIndex] || '';
         }
       } else if (e.key === 'ArrowDown') {
-        if (historyIndex < history.length - 1) {
+        if (historyIndex < commandHistory.length - 1) {
           historyIndex++;
-          inputEl.value = history[historyIndex];
+          terminalInput.value = commandHistory[historyIndex] || '';
         } else {
-          historyIndex = history.length;
-          inputEl.value = '';
+          terminalInput.value = '';
         }
       }
     });
-
-    let dotCount = 1;
-    const dots = document.getElementById('dots');
-    const loadingInterval = setInterval(() => {
-      dotCount = (dotCount + 1) % 4;
-      dots.textContent = '.'.repeat(dotCount);
-    }, 500);
-
-    window.onload = () => {
-      setTimeout(() => {
-        clearInterval(loadingInterval);
-        document.getElementById('loading').style.display = 'none';
-        consoleEl.style.display = 'block';
-        showBanner();
-        resetInput();
-      }, 2000);
-    };
   </script>
 </body>
 </html>
