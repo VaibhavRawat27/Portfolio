@@ -26,25 +26,15 @@
       background-color: var(--primary);
       color: var(--text);
       min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    header {
+    .center-wrapper {
       text-align: center;
-      padding: 4rem 0;
-      position: relative;
-    }
-
-    .header-content {
-      position: relative;
-      z-index: 2;
+      padding: 2rem;
     }
 
     h1 {
@@ -55,14 +45,12 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      animation: fadeIn 1.5s ease-out;
     }
 
     .tagline {
       font-size: 1.2rem;
       color: var(--text-secondary);
       margin-bottom: 2rem;
-      animation: fadeIn 2s ease-out;
     }
 
     .resume-btn {
@@ -75,7 +63,6 @@
       font-weight: 600;
       font-size: 1.1rem;
       transition: all 0.3s ease;
-      animation: fadeInUp 1s ease-out;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
@@ -84,9 +71,6 @@
       box-shadow: 0 6px 10px rgba(109, 40, 217, 0.3);
     }
 
-    
-
-    /* FAB */
     .fab {
       position: fixed;
       bottom: 25px;
@@ -110,59 +94,24 @@
       transform: scale(1.1);
       background-color: #8b5cf6;
     }
-
-    
-    
   </style>
 </head>
 <body>
-  <div class="animated-bg">
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    
+  <div class="center-wrapper">
+    <h1>I'm Vaibhav Rawat</h1>
+    <p class="tagline">Creating digital experiences through code and design</p>
+    <a href="https://drive.google.com/file/d/1lT58HRy_NiXFpr98KcscYJOVhZQsXjeH/view?usp=sharing" class="resume-btn">Download Resume</a>
   </div>
 
-  <div class="container">
-    <header>
-      <div class="header-content">
-        <h1>I'm Vaibhav Rawat</h1>
-        <p class="tagline">Creating digital experiences through code and design</p>
-        <a href="https://drive.google.com/file/d/1lT58HRy_NiXFpr98KcscYJOVhZQsXjeH/view?usp=sharing" class="resume-btn">Download Resume</a>
-      </div>
-    </header>
-
-
-
-    <!-- Floating Action Button -->
-   <div class="fab" title="Open Terminal" onclick="openTerminal()">
-  <i class="fas fa-terminal"></i>
-</div>
-
-<script>
-  function openTerminal() {
-    window.open('console.html', '_blank'); // opens in a new tab
-  }
-</script>
-
-  
-
-    <script>
-      document.addEventListener('mousemove', (e) => {
-        const header = document.querySelector('.header-content');
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        header.style.transform = `translate(${xAxis}px, ${yAxis}px)`;
-      });
-
-      function openDialog() {
-        document.getElementById('dialog').style.display = 'block';
-      }
-
-      function closeDialog() {
-        document.getElementById('dialog').style.display = 'none';
-      }
-    </script>
+  <!-- Floating Action Button -->
+  <div class="fab" title="Open Terminal" onclick="openTerminal()">
+    <i class="fas fa-terminal"></i>
   </div>
+
+  <script>
+    function openTerminal() {
+      window.open('console.html', '_blank');
+    }
+  </script>
 </body>
 </html>
