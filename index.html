@@ -3,24 +3,166 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hi, I'm Vaibhav Rawat</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>Vaibhav Rawat - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #0f0f0f;
+      --secondary: #1a1a1a;
+      --accent: #6d28d9;
+      --text: #f8f8f8;
+      --text-secondary: #d1d5db;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--primary);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 4rem 0;
+      position: relative;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #ffffff, #aaaaaa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      animation: fadeIn 2s ease-out;
+    }
+
+    .resume-btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background-color: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      animation: fadeInUp 1s ease-out;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .resume-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 10px rgba(109, 40, 217, 0.3);
+    }
+
+    
+
+    /* FAB */
+    .fab {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 60px;
+      height: 60px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 99;
+      transition: all 0.3s ease;
+    }
+
+    .fab:hover {
+      transform: scale(1.1);
+      background-color: #8b5cf6;
+    }
+
+    
+    
+  </style>
 </head>
 <body>
-  <div class="main-container">
-    <div class="glass-card">
-      <h1>Hi, I'm <span class="highlight">Vaibhav Rawat.</span></h1>
-      <div class="social-icons">
-        <a href="https://x.com/RawatVaibhav27" target="_blank" title="X"><i class="fab fa-x-twitter"></i></a>
-        <a href="https://www.youtube.com/@VaibhavRawatDev" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="https://www.instagram.com/vaibhavrwt5/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://leetcode.com/u/VaibhavRawat27/" target="_blank" title="LeetCode"><i class="fas fa-code"></i></a>
-        <a href="https://www.hackerrank.com/profile/vaibhavrawat_dev" target="_blank" title="HackerRank"><i class="fab fa-hackerrank"></i></a>
-        <a href="https://www.linkedin.com/in/vaibhavrawat27/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+  <div class="animated-bg">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="header-content">
+        <h1>I'm Vaibhav Rawat</h1>
+        <p class="tagline">Creating digital experiences through code and design</p>
+        <a href="https://drive.google.com/file/d/1lT58HRy_NiXFpr98KcscYJOVhZQsXjeH/view?usp=sharing" class="resume-btn">Download Resume</a>
       </div>
-    </div>
+    </header>
+
+
+
+    <!-- Floating Action Button -->
+   <div class="fab" title="Open Terminal" onclick="openTerminal()">
+  <i class="fas fa-terminal"></i>
+</div>
+
+<script>
+  function openTerminal() {
+    window.open('console.html', '_blank'); // opens in a new tab
+  }
+</script>
+
+  
+
+    <script>
+      document.addEventListener('mousemove', (e) => {
+        const header = document.querySelector('.header-content');
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        header.style.transform = `translate(${xAxis}px, ${yAxis}px)`;
+      });
+
+      function openDialog() {
+        document.getElementById('dialog').style.display = 'block';
+      }
+
+      function closeDialog() {
+        document.getElementById('dialog').style.display = 'none';
+      }
+    </script>
   </div>
 </body>
 </html>
