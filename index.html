@@ -26,15 +26,16 @@
       background-color: var(--primary);
       color: var(--text);
       min-height: 100vh;
-      overflow: hidden;
+      overflow-x: hidden;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
     }
 
     .center-wrapper {
       text-align: center;
       padding: 2rem;
+      margin-top: 2rem;
     }
 
     h1 {
@@ -71,6 +72,23 @@
       box-shadow: 0 6px 10px rgba(109, 40, 217, 0.3);
     }
 
+    .section {
+      width: 80%;
+      margin: 2rem 0;
+      padding: 1rem;
+      background-color: var(--secondary);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .card {
+      background-color: var(--accent);
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+
     .fab {
       position: fixed;
       bottom: 25px;
@@ -94,6 +112,41 @@
       transform: scale(1.1);
       background-color: #8b5cf6;
     }
+
+    footer {
+      margin-top: auto;
+      padding: 1rem;
+      text-align: center;
+      background-color: var(--secondary);
+      width: 100%;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+
+    .social-links a {
+      margin: 0 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: var(--accent);
+      transition: background-color 0.3s ease;
+    }
+
+    .social-links img {
+      width: 30px; /* Adjust size as needed */
+      height: 30px; /* Adjust size as needed */
+    }
+
+    .social-links a:hover {
+      background-color: #8b5cf6;
+    }
   </style>
 </head>
 <body>
@@ -103,10 +156,68 @@
     <a href="https://drive.google.com/file/d/1lT58HRy_NiXFpr98KcscYJOVhZQsXjeH/view?usp=sharing" class="resume-btn">Download Resume</a>
   </div>
 
+  <div class="section">
+    <h2>About Me</h2>
+    <p class="card">I am a passionate developer with a love for creating innovative solutions and engaging user experiences.</p>
+  </div>
+
+  <div class="section">
+    <h2>Skills</h2>
+    <div class="card">
+      <p>Programming Languages: Java, Kotlin, Python, JavaScript</p>
+      <p>Tools: Android Studio, Git, Visual Studio Code, Postman</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Education</h2>
+    <div class="card">Bachelor of Technology in Computer Science & Engineering - CGC Jhanjeri (2024 - 2027)</div>
+    <div class="card">Diploma in Computer Science & Engineering - Mehr Chand Polytechnic College (2021 - 2024)</div>
+  </div>
+
+  <div class="section">
+    <h2>My Works / Projects</h2>
+    <div class="card">Project 1: Secured Cloud Share</div>
+    <div class="card">Project 2: Smart Feedback Analyzer</div>
+    <div class="card">Project 3: ISS Tracker</div>
+  </div>
+
+  <div class="section">
+    <h2>Certificates & Achievements</h2>
+    <div class="card">Certificate in Android Development using Kotlin - O7 Solutions</div>
+    <div class="card">Second position in hackathon at CGC Jhanjeri</div>
+  </div>
+
+  <div class="section">
+    <h2>Experience</h2>
+    <div class="card">Trainee at O7 Solutions as Android Developer (June 2023 - July 2023)</div>
+    <div class="card">Founder at fork & flow (July 2025 - Present)</div>
+  </div>
+
+  <div class="section">
+    <h2>Contact Me</h2>
+    <p>Email: rawatvaibhav27@gmail.com</p>
+    <div class="social-links">
+      <a href="https://linkedin.com/in/vaibhavrawat" target="_blank" title="LinkedIn">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg" alt="LinkedIn">
+      </a>
+      <a href="https://github.com/vaibhavrawat" target="_blank" title="GitHub">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="GitHub">
+      </a>
+      <a href="https://leetcode.com/vaibhavrawat/" target="_blank" title="LeetCode">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/LeetCode_logo_black.png" alt="LeetCode">
+      </a>
+    </div>
+  </div>
+
   <!-- Floating Action Button -->
   <div class="fab" title="Open Terminal" onclick="openTerminal()">
     <i class="fas fa-terminal"></i>
   </div>
+
+  <footer>
+    <p>&copy; 2025 Vaibhav Rawat. All rights reserved.</p>
+  </footer>
 
   <script>
     function openTerminal() {
