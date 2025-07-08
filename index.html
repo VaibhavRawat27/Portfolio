@@ -147,6 +147,55 @@
     .social-links a:hover {
       background-color: #8b5cf6;
     }
+
+    /* Chatbot Modal Styles */
+    .chatbot-modal {
+      display: none;
+      position: fixed;
+      bottom: 100px;
+      right: 25px;
+      width: 300px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      z-index: 100;
+      padding: 1rem;
+    }
+
+    .chatbot-header {
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .chatbot-response {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      background-color: var(--secondary);
+      border-radius: 5px;
+    }
+
+    .chatbot-input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      margin-top: 0.5rem;
+    }
+
+    .chatbot-button {
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .chatbot-button:hover {
+      background-color: #8b5cf6;
+    }
   </style>
 </head>
 <body>
@@ -171,8 +220,7 @@
 
   <div class="section">
     <h2>Education</h2>
-    <div class="card">Bachelor of Technology in Computer Science & Engineering - CGC Jhanjeri (2024 - 2027)</div>
-    <div class="card">Diploma in Computer Science & Engineering - Mehr Chand Polytechnic College (2021 - 2024)</div>
+    <div class="card">Bachelor of Science in Computer Science - XYZ University (2018 - 2022)</div>
   </div>
 
   <div class="section">
@@ -210,9 +258,20 @@
     </div>
   </div>
 
-  <!-- Floating Action Button -->
+  <!-- Floating Action Buttons -->
   <div class="fab" title="Open Terminal" onclick="openTerminal()">
     <i class="fas fa-terminal"></i>
+  </div>
+  <div class="fab" title="Chatbot" style="right: 100px;" onclick="toggleChatbot()">
+    <i class="fas fa-comments"></i>
+  </div>
+
+  <!-- Chatbot Modal -->
+  <div class="chatbot-modal" id="chatbotModal">
+    <div class="chatbot-header">Chatbot</div>
+    <div class="chatbot-response" id="chatbotResponse"></div>
+    <input type="text" id="chatbotInput" class="chatbot-input" placeholder="Ask me anything..." />
+    <button class="chatbot-button" onclick="getChatbotResponse()">Send</button>
   </div>
 
   <footer>
@@ -222,6 +281,37 @@
   <script>
     function openTerminal() {
       window.open('console.html', '_blank');
+    }
+
+    function toggleChatbot() {
+      const chatbotModal = document.getElementById('chatbotModal');
+      chatbotModal.style.display = chatbotModal.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function getChatbotResponse() {
+      const input = document.getElementById('chatbotInput').value.toLowerCase();
+      const responseDiv = document.getElementById('chatbotResponse');
+      let response = '';
+
+      switch (input) {
+        case 'what is your name?':
+          response = "I'm Vaibhav Rawat, a passionate developer.";
+          break;
+        case 'what do you do?':
+          response = "I create digital experiences through code and design.";
+          break;
+        case 'what are your skills?':
+          response = "I am skilled in Java, Kotlin, Python, and JavaScript.";
+          break;
+        case 'what projects have you worked on?':
+          response = "I've worked on projects like Secured Cloud Share and Smart Feedback Analyzer.";
+          break;
+        default:
+          response = "I'm sorry, I don't understand that.";
+      }
+
+      responseDiv.innerHTML += `<div>${response}</div>`;
+      document.getElementById('chatbotInput').value = '';
     }
   </script>
 </body>
